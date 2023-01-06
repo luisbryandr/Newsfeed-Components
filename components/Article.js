@@ -86,6 +86,13 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: "Look Mami I'm featured",
+    date: "March 10th, 2023",
+    firstParagraph: "lorem ipsum, love love",
+    secondParagraph: "aklfjkoadhjgmklfjcio kamfs jnogfa jpoafjleraf odkldf",
+    thirdParagraph: "this is it, I'm hired!"
   }
 ];
 
@@ -103,6 +110,8 @@ const data = [
     <span class="expandButton">+</span>
   </div>
 
+ = done
+
   Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
   This listener should toggle the class 'article-open' on div.article.
 
@@ -114,3 +123,58 @@ const data = [
   Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
   Refresh the page to see the new article.
 */
+
+function articleMaker (articleObj) {
+  let article = document.createElement('div');
+  let subHeading = document.createElement('h2');
+  let articleDate = document.createElement('p');
+  let parOne = document.createElement('p');
+  let parTwo = document.createElement('p');
+  let parThree = document.createElement('p');
+  let expandButton = document.createElement('span');
+
+  article.classList.add('article');
+  
+  subHeading.textContent = articleObj.title;
+
+  articleDate.classList.add('date');
+  articleDate.textContent = articleObj.date;
+
+  parOne.textContent = articleObj.firstParagraph;
+  parTwo.textContent = articleObj.secondParagraph;
+  parThree.textContent = articleObj.thirdParagraph;
+
+  expandButton.classList.add('expandButton');
+  expandButton.textContent = '+'
+  expandButton.addEventListener('click',() => {
+    article.classList.toggle('article-open');
+  })
+
+  article.appendChild(subHeading);
+  article.appendChild(articleDate);
+  article.appendChild(parOne);
+  article.appendChild(parTwo);
+  article.appendChild(parThree);
+  article.appendChild(expandButton);
+
+  return article;
+
+}
+
+
+//using forEach
+// data.forEach((article) => {
+//     let newArticle = articleMaker(article);
+//     let articles = document.querySelector('.articles')
+//     articles.appendChild(newArticle);
+// })
+
+let newArticles = data.map((arrayItem) => {
+    let newArticle = articleMaker(arrayItem);
+    return newArticle;
+})
+
+newArticles.forEach(article => {
+  let articles = document.querySelector('.articles');
+  articles.appendChild(article);
+})
